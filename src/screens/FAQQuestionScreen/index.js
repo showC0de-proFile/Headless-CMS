@@ -9,6 +9,15 @@ import CMSProvider from "../../infra/cms/CMSProvider";
 import { pageHOC } from "../../components/wrappers/pageHOC";
 
 export async function getStaticPaths() {
+  const pathsQuey = `
+  query{
+    allContentFaqQuestions (first: 100, skip: 0){
+      id
+      title    
+    }    
+  }
+  `;
+
   return {
     paths: [{ params: { id: "f138c88d" } }, { params: { id: "h138c88d" } }],
     fallback: false,
@@ -18,15 +27,18 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, preview }) {
   const { id } = params;
   const contentQuery = `
-    query {
-      contentFaqQuestion {
+    query ($id: ItemId){
+      contentFaqQuestion (filter: {
+        id: {
+          eq: $id
+        }
+      }) {
         title
         content {
           value
         }
       }
-    }
-  `;
+    }`;
 
   const { data } = await cmsService({
     query: contentQuery,
