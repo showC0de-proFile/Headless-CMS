@@ -31,7 +31,7 @@ export function PageHomeHeroSection(props) {
         <Text tag="p" variant="body1">
           {props.description}
         </Text>
-        <Button href="/faq" colorVariant="neutral">
+        <Button href={props.ctalink} colorVariant="neutral">
           {props.ctatext}
         </Button>
       </Box>
