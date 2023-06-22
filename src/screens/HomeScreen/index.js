@@ -4,11 +4,9 @@ import { Footer } from "../../components/commons/Footer";
 import { theme, Box, Button, Text, Image } from "../../theme/components";
 import { pageHOC } from "../../components/wrappers/pageHOC";
 import { cmsService } from "../../infra/cms/cmsService";
-import { CMSSectionRender } from "../../infra/cms/CMSSections";
+import { CMSSectionRender } from "../../infra/cms/CMSSectionRender";
 
 export async function getStaticProps({ preview }) {
-  console.log("WIII", getStaticProps);
-
   const { data: cmsContent } = await cmsService({
     query: `
     query{
@@ -45,6 +43,7 @@ export async function getStaticProps({ preview }) {
     props: {
       cmsContent,
     },
+    revalidate: 60, // In seconds
   };
 }
 
