@@ -7,6 +7,8 @@ import { cmsService } from "../../infra/cms/cmsService";
 import { CMSSectionRender } from "../../infra/cms/CMSSections";
 
 export async function getStaticProps({ preview }) {
+  console.log("WIII", getStaticProps);
+
   const { data: cmsContent } = await cmsService({
     query: `
     query{
