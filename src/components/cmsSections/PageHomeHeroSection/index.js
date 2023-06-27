@@ -1,4 +1,5 @@
 import { Box, Text, Button, Image, theme } from "../../../theme/components";
+import AnimatedRobotic from "../../../components/imagesAnimated/homeAnimated";
 
 export function PageHomeHeroSection(props) {
   return (
@@ -8,7 +9,7 @@ export function PageHomeHeroSection(props) {
         flex: 1,
         paddingTop: theme.space.x20,
         paddingHorizontal: theme.space.x4,
-        background: `linear-gradient(${theme.colors.primary.x900}, ${theme.colors.primary.x700})`,
+        background: `linear-gradient(${theme.colors.secundary.x900}, ${theme.colors.secundary.x300})`,
         color: theme.colors.neutral.x000,
         display: "flex",
         alignItems: "center",
@@ -35,6 +36,17 @@ export function PageHomeHeroSection(props) {
           {props.ctatext}
         </Button>
       </Box>
+      <AnimatedRobotic height={50} width={50} />
+      {/* <Image
+        src="https://raw.githubusercontent.com/showC0de-proFile/logos/main/icons%20with%20black%20lines-%3Etype%231/computer-svgrepo-com.svg"
+        styleSheet={{
+          maxWidth: {
+            xs: "200px",
+            sm: "initial",
+          },
+          marginVertical: theme.space.x10,
+        }}
+      /> */}
     </Box>
   );
 }
