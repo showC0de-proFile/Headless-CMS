@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ButtonMenuIcon = styled.div`
-  cursor: pointer;
   z-index: 9999999;
   color: #fff;
   line-height: 0;
