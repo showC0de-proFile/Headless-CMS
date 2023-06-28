@@ -8,6 +8,7 @@ export function CMSSectionRender({ pageName }) {
     const Component = cmsSections[sectionProps.componentName];
     const isVisible =
       sectionProps.visible === true || sectionProps.visible === undefined;
+    console.log("sectionProps", sectionProps);
 
     if (!Component) return null;
     if (!isVisible) return null;

@@ -34,8 +34,7 @@ export function PageFAQDisplayQuestionsSection(props) {
           }}
         >
           <Text tag="h1" variant="heading3">
-            FAQ: Perguntas e <br />
-            Dúvidas Frequentes
+            FAQ: Frequently Asked Questions
           </Text>
           <Text
             styleSheet={{
