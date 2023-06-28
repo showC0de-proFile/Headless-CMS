@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
   }
 
-  /* Min Height */
+
   html {
     min-height: 100vh;
     display: flex;
@@ -29,9 +29,7 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     flex: 1;
   }
-  /* Min Height */
 
-  /* Default Hover */
   a,
   button {
     cursor: pointer;
@@ -42,5 +40,3 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 0.5;
   }
 `;
-
-
