@@ -1,7 +1,8 @@
-import { Box, Text, Link, Image, theme } from '../../../theme/components';
+import { Box, Text, Link, Image, theme } from "../../../theme/components";
+import AnimatedDeveloper from "../../../components/imagesAnimated/faqAnimated";
 
 export function PageFAQDisplayQuestionsSection(props) {
-  // console.log(props.categories);
+  console.log(props.categories);
   const categories = props.categories;
   return (
     <Box
@@ -15,15 +16,15 @@ export function PageFAQDisplayQuestionsSection(props) {
     >
       <Box
         styleSheet={{
-          display: 'flex',
+          display: "flex",
           gap: theme.space.x4,
           flexDirection: {
-            xs: 'column',
-            md: 'row',
+            xs: "column",
+            md: "row",
           },
-          width: '100%',
+          width: "100%",
           maxWidth: theme.space.xcontainer_lg,
-          marginHorizontal: 'auto',
+          marginHorizontal: "auto",
         }}
       >
         <Box
@@ -41,21 +42,23 @@ export function PageFAQDisplayQuestionsSection(props) {
               color: theme.colors.neutral.x500,
             }}
           >
-            Confira aqui respostas para as principais dúvidas de nossos alunos
+            Check out answers to the main questions from our students here.
           </Text>
 
-          <Image
+          <AnimatedDeveloper height={50} width={50} />
+
+          {/* <Image
             src="https://www.alura.com.br/assets/img/home/homeNova/ilustra-alura-escafandro.1647533643.svg"
             styleSheet={{
-              maxWidth: '200px',
+              maxWidth: "200px",
               marginVertical: theme.space.x10,
-              marginHorizontal: 'auto',
+              marginHorizontal: "auto",
               display: {
-                xs: 'none',
-                md: 'block'
-              }
+                xs: "none",
+                md: "block",
+              },
             }}
-          />
+          /> */}
         </Box>
 
         <Box
@@ -79,10 +82,10 @@ export function PageFAQDisplayQuestionsSection(props) {
                   ))}
                 </Box>
               </Box>
-            )
+            );
           })}
         </Box>
       </Box>
     </Box>
-  )
+  );
 }
