@@ -21,8 +21,7 @@ export function Menu() {
       >
         <Link href="/">
           <Image
-            src="https://raw.githubusercontent.com/showC0de-proFile/logos/70737b0e1bcc409e7beaf3a7d3c4d5fd33a0481b/logo.svg"
-            alt="Logo"
+            src="https://raw.githubusercontent.com/showC0de-proFile/logos/main/logo.svg"
             width="100"
           />
         </Link>
