@@ -9,32 +9,33 @@ import { CMSSectionRender } from "../../infra/cms/CMSSectionRender";
 export async function getStaticProps({ preview }) {
   const { data: cmsContent } = await cmsService({
     query: `
-    query{
-      pageHome{
-        pageContent{
-          section{
-            componentName: __typename
-            ... on CommonSeoBlockRecord {
-              id  
-              title
-            }  
-            ... on CommomMenuRecord {
-              id          
-            }
-            ... on CommomFooterRecord {
-              id
-            }
-            ... on PagehomeHerosectionRecord {
-              id
-              title
-              description
-              ctalink
-              ctatext
+      query {
+        pageHome {
+          pageContent {
+            section {
+              componentName: __typename
+              ... on CommonSeoBlockRecord {
+                id
+                title
+              }
+              ... on CommonMenuRecord {
+                id
+              }
+              ... on CommonFooterRecord {
+                id
+                visible
+              }
+              ... on PagehomeHerosectionRecord {
+                id
+                title
+                description
+                ctalink
+                ctatext
+              }
             }
           }
         }
       }
-    }
     `,
     preview,
   });
