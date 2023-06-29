@@ -48,7 +48,11 @@ export async function getStaticProps({ preview }) {
 }
 
 function FAQAllQuestionsScreen() {
-  return <CMSSectionRender pageName="pageFaq" />;
+  return (
+    <>
+      <CMSSectionRender pageName="pageFaq" />
+    </>
+  );
 }
 
 export default pageHOC(FAQAllQuestionsScreen);
