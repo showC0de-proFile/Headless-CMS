@@ -79,7 +79,7 @@ function FAQQuestionScreen({ cmsContent }) {
   return (
     <>
       <Head>
-        <title>FAQ - Alura</title>
+        <title>{cmsContent.contentFaqQuestion.title}</title>
       </Head>
 
       <Menu />
