@@ -7,6 +7,7 @@ import { renderNodeRule, StructuredText } from "react-datocms";
 import { isHeading } from "datocms-structured-text-utils";
 import CMSProvider from "../../infra/cms/CMSProvider";
 import { pageHOC } from "../../components/wrappers/pageHOC";
+import Image from "next/image";
 
 export async function getStaticPaths() {
   const pathsQuery = `
@@ -32,8 +33,6 @@ export async function getStaticPaths() {
     };
   });
 
-  console.log(paths);
-
   return {
     paths,
     fallback: false,
@@ -43,18 +42,21 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, preview }) {
   const { id } = params;
   const contentQuery = `
-    query($id: ItemId) {
-      contentFaqQuestion(filter: {
-        id: {
-          eq: $id
-        }
-      }) {
-        title
-        content {
-          value
-        }
+  query($id: ItemId) {
+    contentFaqQuestion(filter: {      
+      id: {
+        eq: $id
       }
+    }) {
+      title
+      content {
+        value
+      }
+  coverPostImage {
+    url
+  }
     }
+  }
   `;
 
   const { data } = await cmsService({
@@ -71,15 +73,16 @@ export async function getStaticProps({ params, preview }) {
       id,
       title: data.contentFaqQuestion.title,
       content: data.contentFaqQuestion.content,
+      coverPostImage: data.contentFaqQuestion.coverPostImage,
     },
   };
 }
 
-function FAQQuestionScreen({ cmsContent }) {
+function FAQQuestionScreen({ cmsContent, coverPostImage }) {
   return (
     <>
       <Head>
-        <title>FAQ - Alura</title>
+        <title>{cmsContent.contentFaqQuestion.title}</title>
       </Head>
 
       <Menu />
@@ -105,6 +108,16 @@ function FAQQuestionScreen({ cmsContent }) {
             {cmsContent.contentFaqQuestion.title}
           </Text>
 
+          {coverPostImage && coverPostImage.url && (
+            <Image
+              src={coverPostImage.url}
+              alt={cmsContent.contentFaqQuestion.title}
+              layout="responsive"
+              width={500}
+              height={300}
+            />
+          )}
+
           <StructuredText
             data={cmsContent.contentFaqQuestion.content}
             customNodeRules={[
@@ -119,10 +132,6 @@ function FAQQuestionScreen({ cmsContent }) {
               }),
             ]}
           />
-          {/* <pre>
-            {JSON.stringify(content, null, 4)}
-          </pre> */}
-          {/* <Box dangerouslySetInnerHTML={{ __html: content }} /> */}
         </Box>
       </Box>
 

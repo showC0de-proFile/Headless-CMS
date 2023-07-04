@@ -1,6 +1,7 @@
 import { pageHOC } from "../../components/wrappers/pageHOC";
 import { CMSSectionRender } from "../../infra/cms/CMSSectionRender";
 import { cmsService } from "../../infra/cms/cmsService";
+import { Image } from "../../theme/components";
 
 export async function getStaticProps({ preview }) {
   const { data: cmsContent } = await cmsService({
