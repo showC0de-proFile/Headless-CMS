@@ -5,6 +5,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-}
+  images: {
+    domains: ["www.datocms-assets.com"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
