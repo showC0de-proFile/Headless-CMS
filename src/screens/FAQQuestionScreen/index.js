@@ -19,7 +19,7 @@ const StyledText = styled.p`
   font-weight: ${theme.typography.variants.display1.fontWeight.xs};
 
   &:hover {
-    color: ${theme.colors.secundary.x050};
+    color: ${theme.colors.neutral.x700};
   }
 `;
 
