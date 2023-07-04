@@ -7,6 +7,7 @@ import { renderNodeRule, StructuredText } from "react-datocms";
 import { isHeading } from "datocms-structured-text-utils";
 import CMSProvider from "../../infra/cms/CMSProvider";
 import { pageHOC } from "../../components/wrappers/pageHOC";
+import Image from "next/image"; // Importar o componente Image do next.js
 
 export async function getStaticPaths() {
   const pathsQuery = `
@@ -43,18 +44,21 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, preview }) {
   const { id } = params;
   const contentQuery = `
-    query($id: ItemId) {
-      contentFaqQuestion(filter: {
-        id: {
-          eq: $id
-        }
-      }) {
-        title
-        content {
-          value
-        }
+  query($id: ItemId) {
+    contentFaqQuestion(filter: {      
+      id: {
+        eq: $id
       }
+    }) {
+      title
+      content {
+        value
+      }
+  coverPostImage {
+    url
+  }
     }
+  }
   `;
 
   const { data } = await cmsService({
@@ -71,11 +75,12 @@ export async function getStaticProps({ params, preview }) {
       id,
       title: data.contentFaqQuestion.title,
       content: data.contentFaqQuestion.content,
+      coverPostImage: data.contentFaqQuestion.coverPostImage, // Adicione isto
     },
   };
 }
 
-function FAQQuestionScreen({ cmsContent }) {
+function FAQQuestionScreen({ cmsContent, coverPostImage }) {
   return (
     <>
       <Head>
@@ -104,6 +109,16 @@ function FAQQuestionScreen({ cmsContent }) {
           <Text tag="h1" variant="heading1">
             {cmsContent.contentFaqQuestion.title}
           </Text>
+
+          {coverPostImage && coverPostImage.url && (
+            <Image
+              src={coverPostImage.url}
+              alt={cmsContent.contentFaqQuestion.title}
+              layout="responsive"
+              width={500}
+              height={300}
+            />
+          )}
 
           <StructuredText
             data={cmsContent.contentFaqQuestion.content}
