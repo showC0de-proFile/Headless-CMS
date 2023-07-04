@@ -7,7 +7,7 @@ import { renderNodeRule, StructuredText } from "react-datocms";
 import { isHeading } from "datocms-structured-text-utils";
 import CMSProvider from "../../infra/cms/CMSProvider";
 import { pageHOC } from "../../components/wrappers/pageHOC";
-import Image from "next/image"; // Importar o componente Image do next.js
+import Image from "next/image";
 
 export async function getStaticPaths() {
   const pathsQuery = `
@@ -73,7 +73,7 @@ export async function getStaticProps({ params, preview }) {
       id,
       title: data.contentFaqQuestion.title,
       content: data.contentFaqQuestion.content,
-      coverPostImage: data.contentFaqQuestion.coverPostImage, // Adicione isto
+      coverPostImage: data.contentFaqQuestion.coverPostImage,
     },
   };
 }
@@ -132,10 +132,6 @@ function FAQQuestionScreen({ cmsContent, coverPostImage }) {
               }),
             ]}
           />
-          {/* <pre>
-            {JSON.stringify(content, null, 4)}
-          </pre> */}
-          {/* <Box dangerouslySetInnerHTML={{ __html: content }} /> */}
         </Box>
       </Box>
 
