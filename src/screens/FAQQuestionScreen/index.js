@@ -5,9 +5,23 @@ import { Box, Text, theme } from "../../theme/components";
 import { cmsService } from "../../infra/cms/cmsService";
 import { renderNodeRule, StructuredText } from "react-datocms";
 import { isHeading } from "datocms-structured-text-utils";
-import CMSProvider from "../../infra/cms/CMSProvider";
 import { pageHOC } from "../../components/wrappers/pageHOC";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+
+const StyledText = styled.p`
+  cursor: pointer;
+  width: ${theme.space.x10};
+  color: ${theme.colors.neutral.x500};
+  text-align: ${theme.typography.variants.display1.letterSpacing.md};
+  font-weight: ${theme.typography.variants.display1.fontWeight.xs};
+
+  &:hover {
+    color: ${theme.colors.secundary.x050};
+  }
+`;
 
 export async function getStaticPaths() {
   const pathsQuery = `
@@ -79,6 +93,7 @@ export async function getStaticProps({ params, preview }) {
 }
 
 function FAQQuestionScreen({ cmsContent, coverPostImage }) {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -104,10 +119,24 @@ function FAQQuestionScreen({ cmsContent, coverPostImage }) {
             marginHorizontal: "auto",
           }}
         >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <StyledText onClick={() => router.back()} style={{ flex: 1 }}>
+              <AiOutlineArrowLeft
+                style={{ position: "relative", top: "2px" }}
+              />
+              Back
+            </StyledText>
+          </div>
+
           <Text tag="h1" variant="heading1">
             {cmsContent.contentFaqQuestion.title}
           </Text>
-
           {coverPostImage && coverPostImage.url && (
             <Image
               src={coverPostImage.url}
@@ -117,7 +146,6 @@ function FAQQuestionScreen({ cmsContent, coverPostImage }) {
               height={300}
             />
           )}
-
           <StructuredText
             data={cmsContent.contentFaqQuestion.content}
             customNodeRules={[
