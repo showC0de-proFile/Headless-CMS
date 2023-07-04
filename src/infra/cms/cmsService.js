@@ -52,6 +52,7 @@ export async function cmsService({ query, variables, preview }) {
         ...pageContentResponse.data,
         globalContent: {
           ...globalContentResponse.data,
+          // ...globalContentResponse.data.globalFooter,
         },
       },
     };
