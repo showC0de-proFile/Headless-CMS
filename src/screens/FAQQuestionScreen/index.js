@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { format } from "date-fns";
 
 const StyledText = styled.p`
   cursor: pointer;
@@ -20,6 +21,7 @@ const StyledText = styled.p`
 
   &:hover {
     color: ${theme.colors.neutral.x700};
+    transition: 0.3s ease-in-out;
   }
 `;
 
@@ -64,6 +66,7 @@ export async function getStaticProps({ params, preview }) {
       }
       coverPostImage {
         url
+        alt
       }
     }
     contentFaqCategory {
@@ -135,25 +138,41 @@ function FAQQuestionScreen({ cmsContent, coverPostImage, contentFaqCategory }) {
             </StyledText>
           </div>
 
-          {contentFaqCategory && (
-            <Text tag="h2" variant="heading2">
-              {contentFaqCategory.datePost}
-            </Text>
-          )}
-
           <Text tag="h1" variant="heading1">
             {cmsContent.contentFaqQuestion.title}
           </Text>
 
-          {coverPostImage && coverPostImage.url && (
-            <Image
-              src={coverPostImage.url}
-              alt={cmsContent.contentFaqQuestion.title}
-              layout="responsive"
-              width={500}
-              height={300}
-            />
+          {contentFaqCategory && (
+            <Text tag="h1">
+              {format(new Date(contentFaqCategory.datePost), "dd.MM.yyyy")}
+            </Text>
           )}
+
+          {coverPostImage && coverPostImage.url && (
+            <>
+              <Image
+                src={coverPostImage.url}
+                alt={cmsContent.contentFaqQuestion.title}
+                layout="responsive"
+                width={500}
+                height={300}
+              />
+              {coverPostImage.alt && (
+                <Text
+                  variant="body4"
+                  style={{
+                    marginTop: "0px",
+                    backgroundColor: theme.colors.neutral.x200,
+                    padding: 5,
+                    color: theme.colors.neutral.x500,
+                  }}
+                >
+                  {coverPostImage.alt}
+                </Text>
+              )}
+            </>
+          )}
+
           <StructuredText
             data={cmsContent.contentFaqQuestion.content}
             customNodeRules={[
