@@ -57,18 +57,18 @@ export async function getStaticProps({ params, preview }) {
   const { id } = params;
   const contentQuery = `
   query($id: ItemId) {
-    contentFaqQuestion(filter: {      
-      id: {
-        eq: $id
-      }
-    }) {
+    contentFaqQuestion(filter: {id: {eq: $id}}) {
       title
       content {
         value
       }
-  coverPostImage {
-    url
-  }
+      coverPostImage {
+        url
+      }
+    }
+    contentFaqCategory {
+      datePost
+      id
     }
   }
   `;
@@ -88,11 +88,12 @@ export async function getStaticProps({ params, preview }) {
       title: data.contentFaqQuestion.title,
       content: data.contentFaqQuestion.content,
       coverPostImage: data.contentFaqQuestion.coverPostImage,
+      contentFaqCategory: data.contentFaqCategory,
     },
   };
 }
 
-function FAQQuestionScreen({ cmsContent, coverPostImage }) {
+function FAQQuestionScreen({ cmsContent, coverPostImage, contentFaqCategory }) {
   const router = useRouter();
   return (
     <>
@@ -134,9 +135,16 @@ function FAQQuestionScreen({ cmsContent, coverPostImage }) {
             </StyledText>
           </div>
 
+          {contentFaqCategory && (
+            <Text tag="h2" variant="heading2">
+              {contentFaqCategory.datePost}
+            </Text>
+          )}
+
           <Text tag="h1" variant="heading1">
             {cmsContent.contentFaqQuestion.title}
           </Text>
+
           {coverPostImage && coverPostImage.url && (
             <Image
               src={coverPostImage.url}
