@@ -11,6 +11,7 @@ export function Menu() {
         backgroundImage:
           "linear-gradient(180deg,rgb(0 0 0 / 60%) 0%,rgba(0,212,255,0) 100%)",
         backdropFilter: "blur(5px)",
+        zIndex: 1,
       }}
     >
       <Box
