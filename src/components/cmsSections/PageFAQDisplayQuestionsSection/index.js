@@ -58,19 +58,6 @@ export function PageFAQDisplayQuestionsSection(props) {
             </Link>
 
             <AnimatedDeveloper height={50} width={50} />
-
-            {/* <Image
-      src="https://www.alura.com.br/assets/img/home/homeNova/ilustra-alura-escafandro.1647533643.svg"
-      styleSheet={{
-        maxWidth: "200px",
-        marginVertical: theme.space.x10,
-        marginHorizontal: "auto",
-        display: {
-          xs: "none",
-          md: "block",
-        },
-      }}
-    /> */}
           </Box>
 
           <Box

@@ -36,17 +36,7 @@ export function PageHomeHeroSection(props) {
           {props.ctatext}
         </Button>
       </Box>
-      <AnimatedRobotic height={50} width={50} />
-      {/* <Image
-        src="https://raw.githubusercontent.com/showC0de-proFile/logos/main/icons%20with%20black%20lines-%3Etype%231/computer-svgrepo-com.svg"
-        styleSheet={{
-          maxWidth: {
-            xs: "200px",
-            sm: "initial",
-          },
-          marginVertical: theme.space.x10,
-        }}
-      /> */}
+      <AnimatedRobotic height={50} width={50} />{" "}
     </Box>
   );
 }

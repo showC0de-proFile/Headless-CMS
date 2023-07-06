@@ -173,10 +173,6 @@ function FAQQuestionScreen({
           >
             {contentFaqCategory && (
               <Text tag="h1">
-                {/* <FcCalendar
-                  style={{ position: "relative", top: "1px", width: "30px" }}
-                /> */}
-
                 <BsCalendar3
                   style={{ position: "relative", top: "1px", width: "30px" }}
                 />

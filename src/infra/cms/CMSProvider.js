@@ -1,26 +1,27 @@
-import React from 'react';
-import get from 'lodash/get';
+import React from "react";
+import get from "lodash/get";
 
 const CMSContext = React.createContext({
-  cmsContent: {}
+  cmsContent: {},
 });
 
-export const getCMSContent = (path = '') => {
-  const cmsContent = React.useContext(CMSContext).cmsContent
+export const getCMSContent = (path = "") => {
+  const cmsContent = React.useContext(CMSContext).cmsContent;
 
-  if(path === '') return cmsContent;
+  if (path === "") return cmsContent;
 
-  const output =  get(cmsContent, path);
+  const output = get(cmsContent, path);
 
-  if(!output) throw new Error(`Não foi possível encontrar a chave: "${path}". Reveja sua query e tente novamente.`)
+  if (!output)
+    throw new Error(
+      `The key could not be found: "${path}". Review your query and try again.`
+    );
 
   return output;
 };
 
 export default function CMSProvider({ cmsContent, children }) {
   return (
-    <CMSContext.Provider value={{ cmsContent }}>
-      {children}
-    </CMSContext.Provider>
-  )
+    <CMSContext.Provider value={{ cmsContent }}>{children}</CMSContext.Provider>
+  );
 }
