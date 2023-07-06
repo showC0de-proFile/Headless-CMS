@@ -9,6 +9,7 @@
     "dev": "next dev"
   },
   "dependencies": {
+    "date-fns": "^2.30.0",
     "datocms-structured-text-utils": "^2.0.4",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",

@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { format, isValid } from "date-fns";
 
 const StyledText = styled.p`
   cursor: pointer;
@@ -20,6 +21,7 @@ const StyledText = styled.p`
 
   &:hover {
     color: ${theme.colors.neutral.x700};
+    transition: 0.3s ease-in-out;
   }
 `;
 
@@ -56,21 +58,26 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, preview }) {
   const { id } = params;
   const contentQuery = `
-  query($id: ItemId) {
-    contentFaqQuestion(filter: {      
-      id: {
-        eq: $id
-      }
-    }) {
+  query ($id: ItemId) {
+    contentFaqQuestion(filter: {id: {eq: $id}}) {
       title
       content {
         value
       }
-  coverPostImage {
-    url
-  }
+      coverPostImage {
+        url
+        alt
+      }
     }
+    contentFaqCategory {
+      datePost
+      id
+      postNameAuthor
+      timePost
+    }
+    
   }
+  
   `;
 
   const { data } = await cmsService({
@@ -88,11 +95,22 @@ export async function getStaticProps({ params, preview }) {
       title: data.contentFaqQuestion.title,
       content: data.contentFaqQuestion.content,
       coverPostImage: data.contentFaqQuestion.coverPostImage,
+      contentFaqCategory: data.contentFaqCategory,
+      postNameAuthor: data.contentFaqCategory.postNameAuthor,
+      timePost: data.contentFaqCategory.timePost
+        ? new Date(data.contentFaqCategory.timePost).toISOString()
+        : null,
     },
   };
 }
 
-function FAQQuestionScreen({ cmsContent, coverPostImage }) {
+function FAQQuestionScreen({
+  cmsContent,
+  coverPostImage,
+  contentFaqCategory,
+  postNameAuthor,
+  timePost,
+}) {
   const router = useRouter();
   return (
     <>
@@ -137,15 +155,59 @@ function FAQQuestionScreen({ cmsContent, coverPostImage }) {
           <Text tag="h1" variant="heading1">
             {cmsContent.contentFaqQuestion.title}
           </Text>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            {contentFaqCategory && (
+              <Text tag="h1">
+                {format(new Date(contentFaqCategory.datePost), "dd.MM.yyyy")}
+              </Text>
+            )}
+
+            {postNameAuthor && (
+              <Text tag="p" variant="body1">
+                {postNameAuthor}
+              </Text>
+            )}
+
+            {timePost && isValid(new Date(timePost)) && (
+              <Text tag="p" variant="body1">
+                {/* {console.log("TimePost value before formatting:", timePost)}
+                {console.log("Date is valid?", isValid(new Date(timePost)))} */}
+                {format(new Date(timePost), "HH:mm")}
+              </Text>
+            )}
+          </div>
           {coverPostImage && coverPostImage.url && (
-            <Image
-              src={coverPostImage.url}
-              alt={cmsContent.contentFaqQuestion.title}
-              layout="responsive"
-              width={500}
-              height={300}
-            />
+            <>
+              <Image
+                src={coverPostImage.url}
+                alt={cmsContent.contentFaqQuestion.title}
+                layout="responsive"
+                width={500}
+                height={300}
+              />
+              {coverPostImage.alt && (
+                <Text
+                  variant="body4"
+                  style={{
+                    marginTop: "0px",
+                    backgroundColor: theme.colors.neutral.x200,
+                    padding: 5,
+                    color: theme.colors.neutral.x500,
+                  }}
+                >
+                  {coverPostImage.alt}
+                </Text>
+              )}
+            </>
           )}
+
           <StructuredText
             data={cmsContent.contentFaqQuestion.content}
             customNodeRules={[
