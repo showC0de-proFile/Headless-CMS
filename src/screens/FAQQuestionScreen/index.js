@@ -10,6 +10,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { FiUser } from "react-icons/fi";
+import { FaClock } from "react-icons/fa";
+import { FcCalendar } from "react-icons/fc";
+
+import { BsCalendar3 } from "react-icons/bs";
+
+import { TfiFaceSmile } from "react-icons/tfi";
+
 import { format, isValid } from "date-fns";
 
 const StyledText = styled.p`
@@ -165,20 +173,33 @@ function FAQQuestionScreen({
           >
             {contentFaqCategory && (
               <Text tag="h1">
+                {/* <FcCalendar
+                  style={{ position: "relative", top: "1px", width: "30px" }}
+                /> */}
+
+                <BsCalendar3
+                  style={{ position: "relative", top: "1px", width: "30px" }}
+                />
+
                 {format(new Date(contentFaqCategory.datePost), "dd.MM.yyyy")}
               </Text>
             )}
 
             {postNameAuthor && (
               <Text tag="p" variant="body1">
+                <TfiFaceSmile
+                  style={{ position: "relative", top: "1px", width: "30px" }}
+                />
+
                 {postNameAuthor}
               </Text>
             )}
 
             {timePost && isValid(new Date(timePost)) && (
               <Text tag="p" variant="body1">
-                {/* {console.log("TimePost value before formatting:", timePost)}
-                {console.log("Date is valid?", isValid(new Date(timePost)))} */}
+                <FaClock
+                  style={{ position: "relative", top: "1px", width: "30px" }}
+                />
                 {format(new Date(timePost), "HH:mm")}
               </Text>
             )}
