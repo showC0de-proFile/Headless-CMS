@@ -88,8 +88,6 @@ export async function getStaticProps({ params, preview }) {
     preview,
   });
 
-  console.log("coverPostImage data:", data.contentFaqQuestion.coverPostImage);
-
   return {
     props: {
       cmsContent: data,
@@ -179,8 +177,8 @@ function FAQQuestionScreen({
 
             {timePost && isValid(new Date(timePost)) && (
               <Text tag="p" variant="body1">
-                {console.log("TimePost value before formatting:", timePost)}
-                {console.log("Date is valid?", isValid(new Date(timePost)))}
+                {/* {console.log("TimePost value before formatting:", timePost)}
+                {console.log("Date is valid?", isValid(new Date(timePost)))} */}
                 {format(new Date(timePost), "HH:mm")}
               </Text>
             )}
