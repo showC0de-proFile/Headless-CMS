@@ -1,4 +1,6 @@
 const TOKEN = process.env.TOKEN_CMS;
+const BASE_ENDPOINT = process.env.DATA_CMS;
+const PREVIEW_ENDPOINT = process.env.PREVIEW_CMS;
 
 const globalQuery = `
   query {
@@ -7,9 +9,6 @@ const globalQuery = `
     }
   }
 `;
-
-const BASE_ENDPOINT = "https://graphql.datocms.com/";
-const PREVIEW_ENDPOINT = "https://graphql.datocms.com/preview";
 
 export async function cmsService({ query, variables, preview }) {
   const ENDPOINT = preview ? PREVIEW_ENDPOINT : BASE_ENDPOINT;
@@ -45,14 +44,11 @@ export async function cmsService({ query, variables, preview }) {
       throw new Error(JSON.stringify(body));
     });
 
-    // console.log('pageContentResponse', pageContentResponse);
-
     return {
       data: {
         ...pageContentResponse.data,
         globalContent: {
           ...globalContentResponse.data,
-          // ...globalContentResponse.data.globalFooter,
         },
       },
     };
