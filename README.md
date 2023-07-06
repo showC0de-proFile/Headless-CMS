@@ -1,3 +1,4 @@
+![Home](./assets/home.gif)
 
 # Integration of DatoCMS with Next.js
 
