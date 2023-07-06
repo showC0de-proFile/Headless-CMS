@@ -58,7 +58,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, preview }) {
   const { id } = params;
   const contentQuery = `
-  query($id: ItemId) {
+  query ($id: ItemId) {
     contentFaqQuestion(filter: {id: {eq: $id}}) {
       title
       content {
@@ -72,7 +72,9 @@ export async function getStaticProps({ params, preview }) {
     contentFaqCategory {
       datePost
       id
+      postNameAuthor
     }
+    
   }
   `;
 
@@ -92,11 +94,17 @@ export async function getStaticProps({ params, preview }) {
       content: data.contentFaqQuestion.content,
       coverPostImage: data.contentFaqQuestion.coverPostImage,
       contentFaqCategory: data.contentFaqCategory,
+      postNameAuthor: data.contentFaqCategory.postNameAuthor,
     },
   };
 }
 
-function FAQQuestionScreen({ cmsContent, coverPostImage, contentFaqCategory }) {
+function FAQQuestionScreen({
+  cmsContent,
+  coverPostImage,
+  contentFaqCategory,
+  postNameAuthor,
+}) {
   const router = useRouter();
   return (
     <>
@@ -142,12 +150,25 @@ function FAQQuestionScreen({ cmsContent, coverPostImage, contentFaqCategory }) {
             {cmsContent.contentFaqQuestion.title}
           </Text>
 
-          {contentFaqCategory && (
-            <Text tag="h1">
-              {format(new Date(contentFaqCategory.datePost), "dd.MM.yyyy")}
-            </Text>
-          )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            {contentFaqCategory && (
+              <Text tag="h1">
+                {format(new Date(contentFaqCategory.datePost), "dd.MM.yyyy")}
+              </Text>
+            )}
 
+            {postNameAuthor && (
+              <Text tag="p" variant="body1">
+                {postNameAuthor}
+              </Text>
+            )}
+          </div>
           {coverPostImage && coverPostImage.url && (
             <>
               <Image
