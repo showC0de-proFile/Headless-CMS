@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 
 const StyledText = styled.p`
   cursor: pointer;
@@ -73,9 +73,11 @@ export async function getStaticProps({ params, preview }) {
       datePost
       id
       postNameAuthor
+      timePost
     }
     
   }
+  
   `;
 
   const { data } = await cmsService({
@@ -86,6 +88,8 @@ export async function getStaticProps({ params, preview }) {
     preview,
   });
 
+  console.log("coverPostImage data:", data.contentFaqQuestion.coverPostImage);
+
   return {
     props: {
       cmsContent: data,
@@ -95,6 +99,9 @@ export async function getStaticProps({ params, preview }) {
       coverPostImage: data.contentFaqQuestion.coverPostImage,
       contentFaqCategory: data.contentFaqCategory,
       postNameAuthor: data.contentFaqCategory.postNameAuthor,
+      timePost: data.contentFaqCategory.timePost
+        ? new Date(data.contentFaqCategory.timePost).toISOString()
+        : null,
     },
   };
 }
@@ -104,6 +111,7 @@ function FAQQuestionScreen({
   coverPostImage,
   contentFaqCategory,
   postNameAuthor,
+  timePost,
 }) {
   const router = useRouter();
   return (
@@ -166,6 +174,14 @@ function FAQQuestionScreen({
             {postNameAuthor && (
               <Text tag="p" variant="body1">
                 {postNameAuthor}
+              </Text>
+            )}
+
+            {timePost && isValid(new Date(timePost)) && (
+              <Text tag="p" variant="body1">
+                {console.log("TimePost value before formatting:", timePost)}
+                {console.log("Date is valid?", isValid(new Date(timePost)))}
+                {format(new Date(timePost), "HH:mm")}
               </Text>
             )}
           </div>
