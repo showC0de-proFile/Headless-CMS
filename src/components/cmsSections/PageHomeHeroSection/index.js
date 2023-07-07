@@ -1,5 +1,5 @@
-import { Box, Text, Button, Image, theme } from "../../../theme/components";
-import AnimatedRobotic from "../../../components/imagesAnimated/homeAnimated";
+import { Box, Text, Button, Image, theme } from "@theme/components";
+import AnimatedRobotic from "@components/imagesAnimated/homeAnimated";
 
 export function PageHomeHeroSection(props) {
   return (

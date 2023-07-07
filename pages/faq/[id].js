@@ -1,1 +1,5 @@
-export { default, getStaticProps, getStaticPaths } from '../../src/screens/FAQQuestionScreen';
+export {
+  default,
+  getStaticProps,
+  getStaticPaths,
+} from "@screens/FAQQuestionScreen";

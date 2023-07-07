@@ -1,4 +1,4 @@
-import { Box, Image, Link, theme } from "../../../theme/components";
+import { Box, Image, Link, theme } from "@theme/components";
 
 export function Menu() {
   return (

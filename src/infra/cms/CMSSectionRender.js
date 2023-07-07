@@ -1,5 +1,5 @@
 import { getCMSContent } from "./CMSProvider";
-import { cmsSections } from "../../components/cmsSections";
+import { cmsSections } from "@components/cmsSections";
 
 export function CMSSectionRender({ pageName }) {
   const sections = getCMSContent(`${pageName}.pageContent[0].section`);
