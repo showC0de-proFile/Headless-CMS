@@ -1,4 +1,4 @@
-import CMSProvider from '../../infra/cms/CMSProvider';
+import CMSProvider from "@infra/cms/CMSProvider";
 
 export function pageHOC(Component) {
   return function Wrapper(props) {
@@ -7,5 +7,5 @@ export function pageHOC(Component) {
         <Component {...props} />
       </CMSProvider>
     );
-  }
+  };
 }

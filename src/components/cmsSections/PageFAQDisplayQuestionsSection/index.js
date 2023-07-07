@@ -1,5 +1,5 @@
-import { Box, Text, Link, Image, theme } from "../../../theme/components";
-import AnimatedDeveloper from "../../../components/imagesAnimated/faqAnimated";
+import { Box, Text, Link, Image, theme } from "@theme/components";
+import AnimatedDeveloper from "@components/imagesAnimated/faqAnimated";
 
 export function PageFAQDisplayQuestionsSection(props) {
   console.log(props.categories);

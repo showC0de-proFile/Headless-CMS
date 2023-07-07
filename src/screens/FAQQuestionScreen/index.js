@@ -1,23 +1,18 @@
 import Head from "next/head";
-import { Footer } from "../../components/commons/Footer";
-import { Menu } from "../../components/commons/Menu";
-import { Box, Text, theme } from "../../theme/components";
-import { cmsService } from "../../infra/cms/cmsService";
+import { Footer } from "@components/commons/Footer";
+import { Menu } from "@components/commons/Menu";
+import { Box, Text, theme } from "@theme/components";
+import { cmsService } from "@infra/cms/cmsService";
 import { renderNodeRule, StructuredText } from "react-datocms";
 import { isHeading } from "datocms-structured-text-utils";
-import { pageHOC } from "../../components/wrappers/pageHOC";
+import { pageHOC } from "@components/wrappers/pageHOC";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { FiUser } from "react-icons/fi";
 import { FaClock } from "react-icons/fa";
-import { FcCalendar } from "react-icons/fc";
-
 import { BsCalendar3 } from "react-icons/bs";
-
 import { TfiFaceSmile } from "react-icons/tfi";
-
 import { format, isValid } from "date-fns";
 
 const StyledText = styled.p`

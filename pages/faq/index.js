@@ -1,1 +1,1 @@
-export { default, getStaticProps } from '../../src/screens/FAQAllQuestionsScreen';
+export { default, getStaticProps } from "@screens/FAQAllQuestionsScreen";
