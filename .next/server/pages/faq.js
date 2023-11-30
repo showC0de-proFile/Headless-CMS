@@ -25,10 +25,7 @@ var pageHOC = __webpack_require__(9324);
 var CMSSectionRender = __webpack_require__(2100);
 // EXTERNAL MODULE: ./src/infra/cms/cmsService.js
 var cmsService = __webpack_require__(9999);
-// EXTERNAL MODULE: ./src/theme/components.js + 1 modules
-var components = __webpack_require__(1908);
 ;// CONCATENATED MODULE: ./src/screens/FAQAllQuestionsScreen/index.js
-
 
 
 

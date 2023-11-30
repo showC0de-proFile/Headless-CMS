@@ -21,6 +21,7 @@ __webpack_require__.d(__webpack_exports__, {
 var jsx_runtime_ = __webpack_require__(997);
 // EXTERNAL MODULE: external "next/head"
 var head_ = __webpack_require__(968);
+var head_default = /*#__PURE__*/__webpack_require__.n(head_);
 // EXTERNAL MODULE: ./src/components/commons/Menu/index.js
 var Menu = __webpack_require__(95);
 // EXTERNAL MODULE: ./src/components/commons/Footer/index.js
@@ -43,8 +44,9 @@ var CMSSectionRender = __webpack_require__(2100);
 
 
 async function getStaticProps({ preview  }) {
-    const { data: cmsContent  } = await (0,cmsService/* cmsService */.Q)({
-        query: `
+    try {
+        const { data: cmsContent  } = await (0,cmsService/* cmsService */.Q)({
+            query: `
       query {
         pageHome {
           pageContent {
@@ -73,18 +75,40 @@ async function getStaticProps({ preview  }) {
         }
       }
     `,
-        preview
-    });
-    return {
-        props: {
-            cmsContent
-        },
-        revalidate: 60
-    };
+            preview
+        });
+        if (!cmsContent || !cmsContent.pageHome) {
+            throw new Error("CMS data is missing or in the wrong format");
+        }
+        return {
+            props: {
+                cmsContent
+            },
+            revalidate: 60
+        };
+    } catch (error) {
+        console.error("Error fetching data from CMS:", error.message);
+        return {
+            notFound: true
+        };
+    }
 }
-function HomeScreen() {
-    return /*#__PURE__*/ jsx_runtime_.jsx(CMSSectionRender/* CMSSectionRender */.R, {
-        pageName: "pageHome"
+function HomeScreen({ cmsContent  }) {
+    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+        children: [
+            /*#__PURE__*/ jsx_runtime_.jsx((head_default()), {
+                children: /*#__PURE__*/ jsx_runtime_.jsx("title", {
+                    children: "Home Page"
+                })
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx(Menu/* Menu */.v, {}),
+            /*#__PURE__*/ jsx_runtime_.jsx("main", {
+                children: cmsContent && /*#__PURE__*/ jsx_runtime_.jsx(CMSSectionRender/* CMSSectionRender */.R, {
+                    pageName: "pageHome"
+                })
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx(Footer/* Footer */.$, {})
+        ]
     });
 }
 /* harmony default export */ const screens_HomeScreen = ((0,pageHOC/* pageHOC */.W)(HomeScreen));

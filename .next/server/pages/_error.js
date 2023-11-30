@@ -5,126 +5,43 @@ exports.id = 820;
 exports.ids = [820];
 exports.modules = {
 
-/***/ 2648:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 6135:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-var __webpack_unused_export__;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 
-__webpack_unused_export__ = ({
-    value: true
-});
-exports.Z = _interopRequireDefault;
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-        default: obj
-    };
+
+function Error({ statusCode  }) {
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        style: {
+            padding: "20px",
+            textAlign: "center"
+        },
+        children: [
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                children: statusCode ? `Um erro ${statusCode} ocorreu no servidor` : "Um erro ocorreu no cliente"
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                children: "Desculpe, algo deu errado."
+            })
+        ]
+    });
 }
-
-
-/***/ }),
-
-/***/ 9185:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-exports["default"] = void 0;
-var _interop_require_default = (__webpack_require__(2648)/* ["default"] */ .Z);
-var _react = _interop_require_default(__webpack_require__(6689));
-var _head = _interop_require_default(__webpack_require__(4957));
-const statusCodes = {
-    400: "Bad Request",
-    404: "This page could not be found",
-    405: "Method Not Allowed",
-    500: "Internal Server Error"
-};
-function _getInitialProps({ res , err  }) {
-    const statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404;
+Error.getInitialProps = ({ res , err  })=>{
+    const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
     return {
         statusCode
     };
-}
-const styles = {
-    error: {
-        fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Fira Sans", Avenir, "Helvetica Neue", "Lucida Grande", sans-serif',
-        height: "100vh",
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    desc: {
-        display: "inline-block",
-        textAlign: "left",
-        lineHeight: "49px",
-        height: "49px",
-        verticalAlign: "middle"
-    },
-    h1: {
-        display: "inline-block",
-        margin: 0,
-        marginRight: "20px",
-        padding: "0 23px 0 0",
-        fontSize: "24px",
-        fontWeight: 500,
-        verticalAlign: "top",
-        lineHeight: "49px"
-    },
-    h2: {
-        fontSize: "14px",
-        fontWeight: "normal",
-        lineHeight: "49px",
-        margin: 0,
-        padding: 0
-    }
 };
-var _Component;
-class Error extends (_Component = _react.default.Component) {
-    render() {
-        const { statusCode , withDarkMode =true  } = this.props;
-        const title = this.props.title || statusCodes[statusCode] || "An unexpected error has occurred";
-        return /*#__PURE__*/ _react.default.createElement("div", {
-            style: styles.error
-        }, /*#__PURE__*/ _react.default.createElement(_head.default, null, /*#__PURE__*/ _react.default.createElement("title", null, statusCode ? `${statusCode}: ${title}` : "Application error: a client-side exception has occurred")), /*#__PURE__*/ _react.default.createElement("div", null, /*#__PURE__*/ _react.default.createElement("style", {
-            dangerouslySetInnerHTML: {
-                __html: `
-                body { margin: 0; color: #000; background: #fff; }
-                .next-error-h1 {
-                  border-right: 1px solid rgba(0, 0, 0, .3);
-                }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Error);
 
-                ${withDarkMode ? `@media (prefers-color-scheme: dark) {
-                  body { color: #fff; background: #000; }
-                  .next-error-h1 {
-                    border-right: 1px solid rgba(255, 255, 255, .3);
-                  }
-                }` : ""}`
-            }
-        }), statusCode ? /*#__PURE__*/ _react.default.createElement("h1", {
-            className: "next-error-h1",
-            style: styles.h1
-        }, statusCode) : null, /*#__PURE__*/ _react.default.createElement("div", {
-            style: styles.desc
-        }, /*#__PURE__*/ _react.default.createElement("h2", {
-            style: styles.h2
-        }, this.props.title || statusCode ? title : /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, "Application error: a client-side exception has occurred (see the browser console for more information)"), "."))));
-    }
-}
-Error.displayName = "ErrorPage";
-Error.getInitialProps = _getInitialProps;
-Error.origGetInitialProps = _getInitialProps;
-exports["default"] = Error; //# sourceMappingURL=_error.js.map
-
-
-/***/ }),
-
-/***/ 4957:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/head.js");
 
 /***/ }),
 
@@ -132,6 +49,13 @@ module.exports = require("next/dist/shared/lib/head.js");
 /***/ ((module) => {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ 997:
+/***/ ((module) => {
+
+module.exports = require("react/jsx-runtime");
 
 /***/ })
 
@@ -142,7 +66,7 @@ module.exports = require("react");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = (__webpack_exec__(9185));
+var __webpack_exports__ = (__webpack_exec__(6135));
 module.exports = __webpack_exports__;
 
 })();
