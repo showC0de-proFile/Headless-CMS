@@ -7,8 +7,9 @@ import { cmsService } from "@infra/cms/cmsService";
 import { CMSSectionRender } from "@infra/cms/CMSSectionRender";
 
 export async function getStaticProps({ preview }) {
-  const { data: cmsContent } = await cmsService({
-    query: `
+  try {
+    const { data: cmsContent } = await cmsService({
+      query: `
       query {
         pageHome {
           pageContent {
@@ -37,19 +38,39 @@ export async function getStaticProps({ preview }) {
         }
       }
     `,
-    preview,
-  });
+      preview,
+    });
 
-  return {
-    props: {
-      cmsContent,
-    },
-    revalidate: 60,
-  };
+    if (!cmsContent || !cmsContent.pageHome) {
+      throw new Error("CMS data is missing or in the wrong format");
+    }
+
+    return {
+      props: {
+        cmsContent,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("Error fetching data from CMS:", error.message);
+
+    return {
+      notFound: true,
+    };
+  }
 }
 
-function HomeScreen() {
-  return <CMSSectionRender pageName="pageHome" />;
+function HomeScreen({ cmsContent }) {
+  return (
+    <div>
+      <Head>
+        <title>Home Page</title>
+      </Head>
+      <Menu />
+      <main>{cmsContent && <CMSSectionRender pageName="pageHome" />}</main>
+      <Footer />
+    </div>
+  );
 }
 
 export default pageHOC(HomeScreen);

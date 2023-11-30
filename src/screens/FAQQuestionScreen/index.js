@@ -56,55 +56,75 @@ export async function getStaticPaths() {
     paths,
     fallback: false,
   };
+
+  // return {
+  //   paths: data.allContentFaqQuestions.map(({ id }) => ({
+  //     params: { id: id.toString() },
+  //   })),
+  //   fallback: false, // ou 'blocking' se você quiser usar ISR
+  // };
 }
 
 export async function getStaticProps({ params, preview }) {
-  const { id } = params;
-  const contentQuery = `
-  query ($id: ItemId) {
-    contentFaqQuestion(filter: {id: {eq: $id}}) {
-      title
-      content {
-        value
+  try {
+    const { id } = params;
+    const contentQuery = `
+      query ($id: ItemId) {
+        contentFaqQuestion(filter: {id: {eq: $id}}) {
+          title
+          content {
+            value
+          }
+          coverPostImage {
+            url
+            alt
+          }
+        }
+        contentFaqCategory {
+          datePost
+          id
+          postNameAuthor
+          timePost
+        }
       }
-      coverPostImage {
-        url
-        alt
-      }
+    `;
+
+    const { data } = await cmsService({
+      query: contentQuery,
+      variables: {
+        id: id,
+      },
+      preview,
+    });
+
+    if (!data.contentFaqQuestion) {
+      return {
+        notFound: true,
+      };
     }
-    contentFaqCategory {
-      datePost
-      id
-      postNameAuthor
-      timePost
-    }
-    
+
+    const timePostFormatted = data.contentFaqCategory.timePost
+      ? new Date(data.contentFaqCategory.timePost).toISOString()
+      : null;
+
+    return {
+      props: {
+        cmsContent: data,
+        id,
+        title: data.contentFaqQuestion.title,
+        content: data.contentFaqQuestion.content,
+        coverPostImage: data.contentFaqQuestion.coverPostImage,
+        contentFaqCategory: data.contentFaqCategory,
+        postNameAuthor: data.contentFaqCategory.postNameAuthor,
+        timePost: timePostFormatted,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching FAQ data:", error);
+    return {
+      notFound: true,
+    };
   }
-  
-  `;
-
-  const { data } = await cmsService({
-    query: contentQuery,
-    variables: {
-      id: id,
-    },
-    preview,
-  });
-
-  return {
-    props: {
-      cmsContent: data,
-      id,
-      title: data.contentFaqQuestion.title,
-      content: data.contentFaqQuestion.content,
-      coverPostImage: data.contentFaqQuestion.coverPostImage,
-      contentFaqCategory: data.contentFaqCategory,
-      postNameAuthor: data.contentFaqCategory.postNameAuthor,
-      timePost: data.contentFaqCategory.timePost
-        ? new Date(data.contentFaqCategory.timePost).toISOString()
-        : null,
-    },
-  };
 }
 
 function FAQQuestionScreen({
