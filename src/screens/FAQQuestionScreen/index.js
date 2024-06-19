@@ -56,13 +56,6 @@ export async function getStaticPaths() {
     paths,
     fallback: false,
   };
-
-  // return {
-  //   paths: data.allContentFaqQuestions.map(({ id }) => ({
-  //     params: { id: id.toString() },
-  //   })),
-  //   fallback: false, // ou 'blocking' se você quiser usar ISR
-  // };
 }
 
 export async function getStaticProps({ params, preview }) {
@@ -135,6 +128,8 @@ function FAQQuestionScreen({
   timePost,
 }) {
   const router = useRouter();
+  const isClient = typeof window !== "undefined";
+
   return (
     <>
       <Head>

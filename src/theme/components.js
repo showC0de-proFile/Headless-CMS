@@ -1,5 +1,4 @@
 import React from "react";
-``;
 import styled from "styled-components";
 import NextLink from "next/link";
 import { theme } from "./theme";
@@ -29,13 +28,10 @@ export function Link({ href, ...props }) {
     },
   };
 
-  if (href.startsWith("http")) {
-    return <Box as={"a"} {...finalProps} />;
-  }
-
+  // Evitar renderização condicional que cause diferenças entre servidor e cliente
   return (
     <NextLink passHref href={href}>
-      <Box as={"a"} {...finalProps} />
+      <Box as="a" {...finalProps} />
     </NextLink>
   );
 }
@@ -132,8 +128,6 @@ export function Button({ href, size, colorVariant, ...props }) {
   );
 }
 Button.defaultProps = {
-  // TODO; Isos aqui
-
   textVariant: "body2",
   size: "md",
 };
@@ -206,7 +200,6 @@ function parseCSS({ styleSheet }) {
               const themeBreakpoints = theme.breakpoints;
               const breakpointValue = themeBreakpoints[breakpointName];
 
-              // const cssRule = `${styleKeyFormated}: ${styleValue[breakpointName]};`;
               const cssRule = parseRule(
                 styleKeyFormated,
                 styleValue[breakpointName]
