@@ -38,24 +38,31 @@ export async function getStaticPaths() {
     }
   `;
 
-  const { data } = await cmsService({
-    query: pathsQuery,
-    variables: {
-      first: 100,
-      skip: 0,
-    },
-  });
+  try {
+    const { data } = await cmsService({
+      query: pathsQuery,
+      variables: {
+        first: 100,
+        skip: 0,
+      },
+    });
 
-  const paths = data.allContentFaqQuestions.map(({ id }) => {
+    const paths = data.allContentFaqQuestions.map(({ id }) => {
+      return {
+        params: { id },
+      };
+    });
+
+    console.log("Generated paths:", paths); // Adicionado log para depuração
+
     return {
-      params: { id },
+      paths,
+      fallback: false,
     };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
+  } catch (error) {
+    console.error("Error fetching paths:", error); // Adicionado log para erros
+    throw error; // Re-lançar o erro para falha de build apropriada
+  }
 }
 
 export async function getStaticProps({ params, preview }) {
@@ -100,6 +107,8 @@ export async function getStaticProps({ params, preview }) {
       ? new Date(data.contentFaqCategory.timePost).toISOString()
       : null;
 
+    console.log("Fetched data for id:", id, data); // Adicionado log para depuração
+
     return {
       props: {
         cmsContent: data,
@@ -113,7 +122,7 @@ export async function getStaticProps({ params, preview }) {
       },
     };
   } catch (error) {
-    console.error("Error fetching FAQ data:", error);
+    console.error("Error fetching FAQ data:", error); // Adicionado log para erros
     return {
       notFound: true,
     };
@@ -128,8 +137,6 @@ function FAQQuestionScreen({
   timePost,
 }) {
   const router = useRouter();
-  const isClient = typeof window !== "undefined";
-
   return (
     <>
       <Head>
